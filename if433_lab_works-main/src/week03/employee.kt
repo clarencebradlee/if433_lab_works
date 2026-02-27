@@ -1,12 +1,15 @@
 package week03
 
-class Employee(val nama: String)
-{
-    var salary: Int = 0
-        set(value){
-            println("mecoba set gaji ke: $value")
+class Employee(val name: String) {
 
-         this.salary = value
+    var salary: Int = 0
+        set(value) {
+            if (value < 0) {
+                println("Error: Gaji tidak boleh negatif!")
+                field = 0
+            } else {
+                field = value
+            }
         }
 
 }
