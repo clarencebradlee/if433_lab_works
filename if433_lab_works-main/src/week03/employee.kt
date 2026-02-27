@@ -11,5 +11,10 @@ class Employee(val name: String) {
                 field = value
             }
         }
-
+    fun updateSalary(amount: Int) {
+       this.salary = amount
+    }
+    fun DisplayInfo() {
+        println("Nama: $name, Gaji: $salary")
+    }
 }
