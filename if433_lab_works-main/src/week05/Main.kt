@@ -1,31 +1,29 @@
 package week05
 
 fun main() {
-    val dosen1 = Dosen(nama = "Pak Alex", nidn = "0123456")
-    val admin1 = Admin(nama = "Bu Siti")
+    // --- Tes Tugas Mandiri 1 ---
+    println("=== TES MATH HELPER (OVERLOADING) ===")
+    val math = MathHelper()
+    println("Luas Persegi: ${math.hitungLuas(5)}")
+    println("Luas Persegi Panjang: ${math.hitungLuas(4, 6)}")
+    println("Luas Lingkaran: ${math.hitungLuas(7.0)}")
 
-    // Polymorphic Collection: List yang berisi tipe Parent (Pegawai),
-    // tapi isinya objek Anak (Dosen & Admin)
-    val daftarPegawai: List<Pegawai> = listOf(dosen1, admin1)
+    // --- Tes Tugas Mandiri 2 ---
+    println("\n=== TES SISTEM PEMBAYARAN ===")
+    val myWallet = EWallet("Clarence Wallet", 50000.0)
+    val myCard = CreditCard("Clarence Card", 100000.0)
 
-    println("=== AKTIVITAS PEGAWAI ===")
+    val listPayment: List<PaymentMethod> = listOf(myWallet, myCard)
 
-    for (pegawai in daftarPegawai) {
-        // 1. Pemanggilan Runtime Polymorphism
-        // Meskipun tipenya Pegawai, yang jalan adalah fungsi milik Dosen/Admin
-        pegawai.bekerja()
+    for (pay in listPayment) {
+        pay.processPayment(75000.0)
 
-        // 2. Smart Casting dengan 'is' dan 'when'
-        when (pegawai) {
-            is Dosen -> {
-                println("=> Terdeteksi sebagai Dosen (NIDN: ${pegawai.nidn})")
-                pegawai.mengajar() // Smart cast! Bisa akses fungsi unik Dosen
-            }
-            is Admin -> {
-                println("=> Terdeteksi sebagai Admin")
-                pegawai.doAdminWork() // Smart cast! Bisa akses fungsi unik Admin
-            }
+        // Smart Casting Challenge
+        if (pay is EWallet && pay.balance < 75000.0) {
+            println("-> Mendeteksi saldo kurang, otomatis Top Up...")
+            pay.topUp(50000.0)
+            pay.processPayment(75000.0)
         }
-        println("-------------------------")
+        println("---------------------------")
     }
 }
